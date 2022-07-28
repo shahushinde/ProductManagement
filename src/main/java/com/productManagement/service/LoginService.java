@@ -22,6 +22,10 @@ public interface LoginService {
 
 	public boolean editProfile(User user);
 
+	public boolean deleteUser(String username);
+
+
+
 
 
 	

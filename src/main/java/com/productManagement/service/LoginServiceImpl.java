@@ -60,6 +60,12 @@ public class LoginServiceImpl implements LoginService {
 		return dao.editProfile(user);
 	}
 
+	@Override
+	public boolean deleteUser(String username) {
+		
+		return dao.deleteUser(username);
+	}
+
 
 	
 

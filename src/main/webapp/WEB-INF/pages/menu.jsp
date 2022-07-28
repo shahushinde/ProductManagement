@@ -25,9 +25,17 @@
         <li class="nav-item">
           <a class="nav-link active" href="homepage"><h5>Home</h5></a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="addUserpage"><h5>Add User</h5></a>
-        </li>
+        <%
+         String role=(String)session.getAttribute("userrole");
+        if(role.equals("Admin")){%>
+   
+        	   <li class="nav-item">
+               <a class="nav-link" href="addUserpage"><h5>Add User</h5></a>
+             </li>	
+        <% 
+        }
+        %>
+     
          <li class="nav-item">
           <a class="nav-link" href="addproductpage"><h5>Add Product</h5></a>
         </li>
@@ -50,7 +58,7 @@
           <a class="nav-link" href="profile?username=<%=session.getAttribute("username") %>"><h5 style="color:red"><%=session.getAttribute("username") %></h5></a>
         </li>
          <li class="navbar-nav mb-2 mb-lg-0">
-          <a class="nav-link" href="logout"><h5>Logout</h5></a>
+          <a class="nav-link" href="userlogout"><h5>Logout</h5></a>
         </li>
         
        

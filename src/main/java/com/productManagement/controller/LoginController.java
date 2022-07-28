@@ -1,5 +1,7 @@
 package com.productManagement.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,16 @@ public class LoginController {
 	public ModelAndView login(@ModelAttribute User user,HttpSession session) {
 		
 		session.setAttribute("user", user);
-
+		
+          User usr =service.getUserByName(user.getUsername());
+          System.out.println("session===>"+usr);
 		// System.err.println(user);
 		ModelAndView mv = new ModelAndView();
 		boolean isPresent = service.loginValidate(user);
 		if (isPresent) {
-
+            session.setAttribute("userrole", usr.getRole());
 			session.setAttribute("username", user.getUsername());
+		
 			mv.setViewName("home");
 
 		} else {

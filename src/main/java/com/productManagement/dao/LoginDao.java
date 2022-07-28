@@ -26,6 +26,6 @@ public interface LoginDao {
 	
 	public boolean editProfile(User user);
 
-	
+	public boolean deleteUser(String username);
 	
 }

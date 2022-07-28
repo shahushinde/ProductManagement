@@ -101,13 +101,29 @@ public class LoginnDaoImpl implements LoginDao {
 		Transaction tt=session.beginTransaction();
 		boolean isEdited=false;
 		try {
-			session.saveOrUpdate(user);
+			session.update(user);
 			tt.commit();
 			isEdited=true;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return isEdited;
+	}
+
+	@Override
+	public boolean deleteUser(String username) {
+		Session session=factory.openSession();
+		Transaction tt=session.beginTransaction();
+		User usr=session.get(User.class,username);
+		boolean isDeleted=false;
+		try {
+			session.delete(usr);
+			tt.commit();
+			isDeleted=true;
+		} catch (Exception e) {
+			session.close();
+		}
+		return isDeleted;
 	}
 
 	
