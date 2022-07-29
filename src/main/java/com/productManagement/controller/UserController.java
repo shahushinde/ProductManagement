@@ -7,10 +7,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.productManagement.entity.User;
@@ -49,7 +51,8 @@ public class UserController {
 		ModelAndView mv=new ModelAndView();
 		List<User> listUser=service.getUserList();
 		session.setAttribute("user", listUser);
-	 
+	  
+	    
 		
 	    mv.setViewName("listOfUsers");
 	    return mv.addObject("user", listUser);
@@ -79,10 +82,19 @@ public class UserController {
 		}
 	}
 	
+	@PostMapping(value="uploadsheet")
+	public String uploadsheet(@RequestParam CommonsMultipartFile file,HttpSession session,Model model) {
+	
+		int count=service.uploadSheet(file,session);
+		model.addAttribute("msg", count+" users uploaded");
+		return "home";
+		
+	}
+	
 	
 	@RequestMapping("delete")
 	public String deleteUser(@RequestParam String username,Model model) {
-		System.out.println(username);
+		
 		boolean isDeleted=service.deleteUser(username);
 		List<User> userList=service.getUserList();
 		
@@ -92,6 +104,24 @@ public class UserController {
 		
 	}
 	
+	
+	@GetMapping(value="userlogout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "login";
+		
+	}
+	
+	
+	
+	
+//	@RequestMapping(value="logoutUser")
+//	public String logoutUser(HttpSession session ) {
+//		session.inactivated;
+//		
+//		return "login";
+//	}
+//	
 	
 	
 //	 @RequestMapping("addUser11")

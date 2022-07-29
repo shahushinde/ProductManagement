@@ -28,4 +28,12 @@ public interface LoginDao {
 
 	public boolean deleteUser(String username);
 	
+	public Product editProduct(String productid);
+	
+	public boolean changeProduct(Product product);
+	
+	public boolean deleteProduct(String productid);
+	
+	public int uploadUsers(List<User> userList);
+	
 }

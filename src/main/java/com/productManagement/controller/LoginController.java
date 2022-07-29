@@ -30,10 +30,10 @@ public class LoginController {
 	public ModelAndView login(@ModelAttribute User user,HttpSession session) {
 		
 		session.setAttribute("user", user);
-		
+		user.setStatus("Active");
+		session.setAttribute("user", user);
           User usr =service.getUserByName(user.getUsername());
-          System.out.println("session===>"+usr);
-		// System.err.println(user);
+          
 		ModelAndView mv = new ModelAndView();
 		boolean isPresent = service.loginValidate(user);
 		if (isPresent) {

@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.productManagement.entity.Product;
@@ -21,7 +23,7 @@ public class ProductController {
 	@PostMapping(value="addproduct")
 	public ModelAndView addProduct(@ModelAttribute Product product) {
 		ModelAndView mv=new ModelAndView();
-		//System.err.println(product);
+		
 		Product prod=service.addproduct(product);
 		
 		
@@ -51,5 +53,42 @@ public class ProductController {
 		return mv;
 		
 	}
+	
 
+	
+	@GetMapping(value="editProduct")
+	public String showProduct(@RequestParam String productid,Model model) {
+		
+		Product product=service.editProduct(productid);
+	
+		model.addAttribute("product", product);
+		return "editProduct";
+	}
+	
+	
+	
+	@PostMapping(value="editProd")
+	public String  editProduct(@ModelAttribute Product product,Model model) {
+		System.err.println(product);
+		boolean isEdited=service.changeProduct(product);
+		if(isEdited) {
+			model.addAttribute("msg", "Product Edited Successfully");
+			return "editProduct";
+		}else {
+			model.addAttribute("msg", "Product Not Edited Successfully");
+			return "editProduct";
+		}
+	
+	}
+	
+	
+	@GetMapping(value="deleteProduct")
+  public String deleteProduct(@RequestParam String productid,Model model) {
+		boolean isdeleted=service.deleteProduct(productid);
+		List<Product> product=service.productList();
+		model.addAttribute("product", product);
+	return "listOfProduct";
+		
+	}
+	
 }

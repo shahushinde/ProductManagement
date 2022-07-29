@@ -32,6 +32,6 @@ background-size: cover;
 </head>
 <body>
 <%@ include file="menu.jsp" %>
- 
+ <h4 style:"color=red";>${msg}</h4>
 </body>
 </html>

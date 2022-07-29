@@ -40,7 +40,7 @@
       <td><c:out value="${product.productprice}"></c:out></td>
       <td><c:out value="${product.productexpirydate}"></c:out></td>
      
-      <td><a href="">EDIT</a>&emsp;<a>DELETE</a></td>
+      <td><a href="editProduct?productid=${product.productid}">EDIT</a>&emsp;<a href="deleteProduct?productid=${product.productid}">DELETE</a></td>
     </tr>
     </c:forEach>
  

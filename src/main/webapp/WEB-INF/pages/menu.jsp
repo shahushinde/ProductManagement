@@ -1,3 +1,13 @@
+<%
+String username=(String) session.getAttribute("username");
+
+if(username==null){
+	request.setAttribute("message", "Please Login first");
+	RequestDispatcher dispatcher=request.getRequestDispatcher("login.jsp");
+	dispatcher.forward(request, response);
+}
+%>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <!-- Container wrapper -->
   <div class="container-fluid">
@@ -31,6 +41,10 @@
    
         	   <li class="nav-item">
                <a class="nav-link" href="addUserpage"><h5>Add User</h5></a>
+             </li>
+             
+                <li class="nav-item">
+               <a class="nav-link" href="UploadUser"><h5>Upload User</h5></a>
              </li>	
         <% 
         }

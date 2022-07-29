@@ -16,6 +16,7 @@ public class User {
 	private String gender;
 	private String question;
 	private String answer;
+	private String status;
 
 	public User() {
 		super();
@@ -23,7 +24,7 @@ public class User {
 	}
 
 	public User(String username, String password, String email, String role, String gender, String question,
-			String answer) {
+			String answer, String status) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -32,12 +33,13 @@ public class User {
 		this.gender = gender;
 		this.question = question;
 		this.answer = answer;
+		this.status = status;
 	}
 
 	@Override
 	public String toString() {
 		return "User [username=" + username + ", password=" + password + ", email=" + email + ", role=" + role
-				+ ", gender=" + gender + ", question=" + question + ", answer=" + answer + "]";
+				+ ", gender=" + gender + ", question=" + question + ", answer=" + answer + ", status=" + status + "]";
 	}
 
 	public String getUsername() {
@@ -95,6 +97,16 @@ public class User {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
 
 	
 }

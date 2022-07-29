@@ -24,5 +24,13 @@ public class PageController {
 		return "home";
 		
 	}
+	
+	
+
+	@RequestMapping(value="UploadUser")
+	public String UploadUser() {
+		return "excelsheetUpload";
+		
+	}
 
 }

@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.productManagement.entity.Product;
 import com.productManagement.entity.User;
@@ -23,7 +24,7 @@ public class LoginnDaoImpl implements LoginDao {
 
 		Session session = factory.openSession();
 		User usr = session.get(User.class, user.getUsername());
-		System.err.println("from dao layer=" + usr);
+		
 		boolean ispresent = false;
 		if (usr != null) {
 			if (usr.getUsername().equals(user.getUsername())) {
@@ -94,6 +95,7 @@ public class LoginnDaoImpl implements LoginDao {
 		return usr;
 	}
 
+
 	public boolean editProfile(User user) {
 
 
@@ -126,6 +128,74 @@ public class LoginnDaoImpl implements LoginDao {
 		return isDeleted;
 	}
 
+	public Product editProduct(String productid) {
+		Session session=factory.openSession();
+		Product product=session.get(Product.class, productid);
+		return product;
+	}
+
+	@Override
+	public boolean changeProduct(Product product) {
+		Session session=factory.openSession();
+		Transaction tt=session.beginTransaction();
+		boolean isEdited=false;
+		try {
+			session.update(product);
+			tt.commit();
+			isEdited=true;
+			
+		} catch (Exception e) {
+		e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return isEdited;
+	}
+
+	@Override
+	public boolean deleteProduct(String productid) {
+		Session session=factory.openSession();
+		Transaction tt=session.beginTransaction();
+		Product product=session.get(Product.class, productid);
+		boolean isDeleted=false;
+		try {
+			if(product!=null) {
+				session.delete(product);
+				tt.commit();
+				isDeleted=true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return isDeleted;
+	}
+
+	@Override
+	public int uploadUsers(List<User> userList) {
+		Session session = null;
+		int count=0;
+		try {
+			for (User user : userList) {
+			 session=factory.openSession();
+				Transaction transaction=session.beginTransaction();
+				session.save(user);
+				transaction.commit();
+				count=count+1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return count;
+	}
+
+	
+
+	
 	
 
 

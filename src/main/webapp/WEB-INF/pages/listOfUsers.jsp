@@ -27,6 +27,7 @@
        <th scope="col">EMAIL</th>
         <th scope="col">GENDER</th>
       <th scope="col">ROLE</th>
+         <th scope="col">STATUS</th>
       
       
        <%
@@ -51,6 +52,7 @@
        <td><c:out value="${users.email}"></c:out></td>
       <td><c:out value="${users.gender}"></c:out></td>
       <td><c:out value="${users.role}"></c:out></td>
+       <td><c:out value="${users.status}"></c:out></td>
       
             <%
          role=(String)session.getAttribute("userrole");
