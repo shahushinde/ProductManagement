@@ -35,12 +35,12 @@ margin-right:130px;
 <div class="container">
 <CENTER>
 <h3 style="color:white;">
-UPLOAD USER
+UPLOAD PRODUCT
 </h3>
 </CENTER>
 <div class="first">
 	<form id="fileUploadForm" 
-      action="uploadsheet" method="post"
+      action="uploadProduct" method="post"
       enctype="multipart/form-data">
     <fieldset>
         <div class="form-horizontal">

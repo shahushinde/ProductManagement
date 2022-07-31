@@ -50,10 +50,10 @@ public class UserController {
 		
 		ModelAndView mv=new ModelAndView();
 		List<User> listUser=service.getUserList();
-		session.setAttribute("user", listUser);
+	
 	  
-	    
-		
+	  
+		session.setAttribute("user", listUser);
 	    mv.setViewName("listOfUsers");
 	    return mv.addObject("user", listUser);
 		
@@ -85,8 +85,8 @@ public class UserController {
 	@PostMapping(value="uploadsheet")
 	public String uploadsheet(@RequestParam CommonsMultipartFile file,HttpSession session,Model model) {
 	
-		int count=service.uploadSheet(file,session);
-		model.addAttribute("msg", count+" users uploaded");
+		String message=service.uploadSheet(file,session);
+		model.addAttribute("msg", message);
 		return "home";
 		
 	}

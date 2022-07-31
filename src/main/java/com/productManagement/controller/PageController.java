@@ -32,5 +32,17 @@ public class PageController {
 		return "excelsheetUpload";
 		
 	}
+	
+	@RequestMapping(value="productupload")
+	public String UploadProduct() {
+		return "productupload";
+		
+	}
+	
+	@RequestMapping(value="forgotpassword")
+	public String forgotPassword() {
+		return "forgotPassword";
+		
+	}
 
 }

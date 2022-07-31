@@ -16,7 +16,7 @@
 		<div class="col-md-4 login-sec">
 		    <h2 class="text-center">Login Now</h2>
 		    <h4 style="color:red">${message}</h4>
-		    <form class="login-form">
+		    <form class="login-form" name="loginform">
   <div class="form-group">
     <label for="exampleInputEmail1" class="text-uppercase">Username</label>
     <input type="text" class="form-control" placeholder="enter username" name="username">
@@ -32,7 +32,7 @@
     <label class="form-check-label">
     <a href="forgotpassword">forgot password?</a>
     </label>
-    <button type="submit" class="btn btn-login float-right" formaction="login">Submit</button>
+    <button type="submit" class="btn btn-login float-right" formaction="login" formmethod="post">Submit</button>
   </div>
   
 </form>
@@ -47,4 +47,8 @@
 	</div>
 </div>
 </section>
+
+<script type="text/javascript">
+
+</script>
 </html>

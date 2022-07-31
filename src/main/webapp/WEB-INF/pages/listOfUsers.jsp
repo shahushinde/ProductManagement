@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <head>
 <link href="register.css" rel="stylesheet">
 <link href="register.js" rel="script">
@@ -52,8 +53,10 @@
        <td><c:out value="${users.email}"></c:out></td>
       <td><c:out value="${users.gender}"></c:out></td>
       <td><c:out value="${users.role}"></c:out></td>
-       <td><c:out value="${users.status}"></c:out></td>
-      
+    <td><c:out value="${users.status}"></c:out></td>
+       
+          
+  
             <%
          role=(String)session.getAttribute("userrole");
         if(role.equals("Admin")){%>

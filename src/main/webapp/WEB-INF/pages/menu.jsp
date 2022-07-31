@@ -53,6 +53,9 @@ if(username==null){
          <li class="nav-item">
           <a class="nav-link" href="addproductpage"><h5>Add Product</h5></a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="productupload"><h5>Upload Product</h5></a>
+        </li>
          <li class="nav-item">
           <a class="nav-link" href="listOfUsers"><h5>User List</h5></a>
         </li>
