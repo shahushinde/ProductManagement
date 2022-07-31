@@ -1,11 +1,20 @@
 package com.productManagement.controller;
 
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.cassandra.CassandraProperties.Request;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +32,8 @@ public class LoginController {
 
 	@Autowired
 	LoginService service;
+	
+	
 
 	@RequestMapping(value = "/")
 	public String loginPage() {
@@ -30,23 +41,25 @@ public class LoginController {
 	}
 
 	@PostMapping(value = "login")
-	public ModelAndView login(@ModelAttribute User user,HttpSession session) {
+	public ModelAndView login(@ModelAttribute User user,HttpSession session,Model model,String toEmail,String body,String subject) {
 	
 		
-		user.setStatus("Active");
-		session.setAttribute("loggedUser", user.getUsername());
-		session.setAttribute("loggedUserStatus", user.getStatus());
+	
           User usr =service.getUserByName(user.getUsername());
 		ModelAndView mv = new ModelAndView();
 		boolean isPresent = service.loginValidate(user);
 		if (isPresent) {
 		
-		
+			usr.setStatus("Active");
+			session.setAttribute("loggedUser", usr.getUsername());
+			session.setAttribute("loggedUserStatus", usr.getStatus());
             session.setAttribute("userrole", usr.getRole());
 			session.setAttribute("username", user.getUsername());
-			
 		
+		   
 			mv.setViewName("home");
+	       
+	        
 
 		} else {
 			mv.setViewName("login");
@@ -67,5 +80,9 @@ public class LoginController {
 		return "forgotPassword";
 		
 	}
-
+	
+	
+	
+	
+	
 }

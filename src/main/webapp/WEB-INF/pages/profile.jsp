@@ -21,6 +21,9 @@ height:650px;
 width:300px;
 
 }
+option{
+width:200px;
+}
 </style>
 </head>
 <body>
@@ -72,7 +75,7 @@ width:300px;
                                                 <label>USERNAME</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="a1" name="username" value="${user.username}">
+                                                <input type="text" class="a1" name="username" value="${user.username}" readonly="readonly">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -104,7 +107,11 @@ width:300px;
                                                 <label>GENDER</label>
                                             </div>
                                             <div class="col-md-6">
-                                                 <input type="text" class="a1" name="gender" value="${user.gender}">
+                                                    <select  name="question">
+                                                <option class="hidden"  selected disabled>${user.gender}</option>
+                                                <option values="Male">Male</option>
+                                                <option values="Female">Female</option>
+                                            </select>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -112,7 +119,13 @@ width:300px;
                                                 <label>QUESTION</label>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="a1" name="question" value="${user.question}">
+                                                
+                                                   <select  name="question" >
+                                                <option class="hidden"  selected disabled>${user.question}</option>
+                                                <option values="What is your Birthdate?">What is your Birthdate?</option>
+                                                <option values="What is Your old Phone Number?">What is Your old Phone Number?</option>
+                                                <option values="What is your Pet Name?">What is your Pet Name?</option>
+                                            </select>
                                             </div>
                                         </div>
                                          <div class="row">

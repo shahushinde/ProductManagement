@@ -1,3 +1,5 @@
+<%@page import="java.util.List"%>
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
@@ -55,7 +57,6 @@
       <td><c:out value="${users.role}"></c:out></td>
     <td><c:out value="${users.status}"></c:out></td>
        
-          
   
             <%
          role=(String)session.getAttribute("userrole");

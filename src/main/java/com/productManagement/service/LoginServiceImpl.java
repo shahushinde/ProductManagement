@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Base64.Encoder;
-import java.util.Formatter;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -22,6 +22,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -35,6 +37,9 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	private LoginnDaoImpl dao;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@Override
 	public boolean loginValidate(User user) {
@@ -54,7 +59,18 @@ public class LoginServiceImpl implements LoginService {
 		encryptedpassword = encoder.encodeToString(password.getBytes());
 		user.setStatus("InActive");
 		user.setPassword(encryptedpassword);
-		return dao.addUser(user);
+//		//mailsending
+//		String email=user.getEmail();
+//		
+//		SimpleMailMessage message=new SimpleMailMessage();
+//		message.setFrom("shahushinde50@gmail.com");
+//		message.setTo(email);
+//		message.setText("wellcome in productManagement Application");
+//		message.setSubject("welcome message");
+//		
+//		mailSender.send(message);
+//		System.out.println("Mail send....");
+	return dao.addUser(user);
 	}
 
 	@Override
@@ -141,7 +157,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	public List<User> readExcel(String path) {
-
+		DataFormatter formatter = new DataFormatter();
 		List<User> userList = new ArrayList<User>();
 		try {
 			FileInputStream fis = new FileInputStream(new File(path));
@@ -183,16 +199,31 @@ public class LoginServiceImpl implements LoginService {
 					}
 					case 4: {
 						user.setEmail(cell.getStringCellValue());
+						//mailsending
+//						String email=user.getEmail();
+//						
+//						SimpleMailMessage message=new SimpleMailMessage();
+//						message.setFrom("shahushinde50@gmail.com");
+//						message.setTo(email);
+//						message.setText("wellcome in productManagement Application");
+//						message.setSubject("welcome message");
+//						
+//						mailSender.send(message);
+//						System.out.println("Mail send....");
 						break;
 
 					}
 					case 5: {
+						
 						user.setQuestion(cell.getStringCellValue());
+						
 						break;
 
 					}
 					case 6: {
-						user.setAnswer(cell.getStringCellValue());
+						String answer = formatter.formatCellValue(cell);
+						user.setAnswer(answer);
+						
 						break;
 					}
 					}

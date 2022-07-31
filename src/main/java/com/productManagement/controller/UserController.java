@@ -1,10 +1,13 @@
 package com.productManagement.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,8 @@ public class UserController {
 
 	@Autowired
 	private LoginService service;
+	
+
 
 	@PostMapping(value = "addUser")
 	public ModelAndView addUser(@ModelAttribute User user) {
@@ -36,6 +41,8 @@ public class UserController {
 		if (isAdded) {
 			mv.setViewName("addUser");
 			mv.addObject("message", "User Added Successfully");
+			
+			
 		} else {
 			mv.setViewName("addUser");
 			mv.addObject("message", "User Is Already Existed");
@@ -50,12 +57,22 @@ public class UserController {
 		
 		ModelAndView mv=new ModelAndView();
 		List<User> listUser=service.getUserList();
+		List<User> userList = new ArrayList();
+		
 	
-	  
-	  
-		session.setAttribute("user", listUser);
+	  String username=(String) session.getAttribute("loggedUser");
+	  String status=(String) session.getAttribute("loggedUserStatus");
+	
+	  for (User user : listUser) {
+		if(user.getUsername().equals(username)) {
+			user.setStatus(status);
+		}
+		userList.add(user);
+	}
+	 
+		session.setAttribute("user", userList);
 	    mv.setViewName("listOfUsers");
-	    return mv.addObject("user", listUser);
+	    return mv.addObject("user", userList);
 		
 		
 	}
@@ -115,74 +132,8 @@ public class UserController {
 	
 	
 	
-//	@RequestMapping(value="logoutUser")
-//	public String logoutUser(HttpSession session ) {
-//		session.inactivated;
-//		
-//		return "login";
-//	}
-//	
+
 	
-	
-//	 @RequestMapping("addUser11")
-//	    public void sendMail(@ModelAttribute User user) {
-//	    	  // Recipient's email ID needs to be mentioned.
-//	        String to = "shahushinde488@gmail.com";
-//
-//	        // Sender's email ID needs to be mentioned
-//	        String from = "shahushinde50@gmail.com";
-//
-//	        // Assuming you are sending email from through gmails smtp
-//	        String host = "smtp.gmail.com";
-//
-//	        // Get system properties
-//	        Properties properties = System.getProperties();
-//
-//	        // Setup mail server
-//	        properties.put("mail.smtp.host", host);
-//	        properties.put("mail.smtp.port", "465");
-//	        properties.put("mail.smtp.ssl.enable", "true");
-//	        properties.put("mail.smtp.auth", "true");
-//
-//	        // Get the Session object.// and pass username and password
-//	        javax.mail.Session session = javax.mail.Session.getInstance(properties, new javax.mail.Authenticator() {
-//
-//	            protected PasswordAuthentication getPasswordAuthentication() {
-//
-//	                return new PasswordAuthentication("shahushinde50@mail.com", "cilrubebkvdmdiuf");
-//
-//	            }
-//
-//	        });
-//	        System.out.println("after authentication");
-//
-//	        // Used to debug SMTP issues
-//	        session.setDebug(true);
-//
-//	        try {
-//	            // Create a default MimeMessage object.
-//	            MimeMessag message = new MimeMessage(session);
-//
-//	            // Set From: header field of the header.
-//	            message.setFrom(new InternetAddress(from));
-//
-//	            // Set To: header field of the header.
-//	            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-//
-//	            // Set Subject: header field
-//	            message.setSubject("This is the Subject Line!");
-//
-//	            // Now set the actual message
-//	            message.setText("This is actual message");
-//
-//	            System.out.println("sending...");
-//	            // Send message
-//	            Transport.send(message);
-//	            System.out.println("Sent message successfully....");
-//	        } catch (MessagingException mex) {
-//	            mex.printStackTrace();
-//	        }
-//
-//	    }
+
 
 }
